@@ -4,9 +4,9 @@
  * This file supports both iOS and Android.
  */
 
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet, Platform } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import { View, TextInput, Text, StyleSheet, Platform } from "react-native";
+import PropTypes from "prop-types";
 
 export const KeycodeInput = (props) => {
   const [inputValue, setInputValue] = useState(props.defaultValue);
@@ -18,8 +18,8 @@ export const KeycodeInput = (props) => {
 
   if (props.value !== undefined && !props.onChange) {
     throw new Error(
-      'To use the KeycodeInput as a controlled component, ' +
-      'you need to supply both the value and onChange props.'
+      "To use the KeycodeInput as a controlled component, " +
+        "you need to supply both the value and onChange props."
     );
   }
 
@@ -28,7 +28,7 @@ export const KeycodeInput = (props) => {
       value = value.toUpperCase();
     }
     if (props.alphaNumeric) {
-      value = value.replace('/[^a-z0-9]/i', '');
+      value = value.replace("/[^a-z0-9]/i", "");
     }
 
     setInputValue(value);
@@ -49,15 +49,18 @@ export const KeycodeInput = (props) => {
   const renderBoxes = () => {
     let elements = [];
     let i = 0;
-    let vals = inputValue.split('');
+    let vals = inputValue.split("");
     while (i < props.length) {
       let active = i === inputValue.length;
-      let barStyles = [styles.bar, active ? [styles.barActive, { backgroundColor: props.tintColor }] : []];
+      let barStyles = [
+        styles.bar,
+        active ? [styles.barActive, { backgroundColor: props.tintColor }] : [],
+      ];
 
       elements.push(
         <View style={styles.box} key={i}>
-          <Text style={styles.text}>{vals[i] || ''}</Text>
-          <View style={barStyles}/>
+          <Text style={styles.text}>{vals[i] || ""}</Text>
+          <View style={barStyles} />
         </View>
       );
 
@@ -67,7 +70,11 @@ export const KeycodeInput = (props) => {
     return elements;
   };
 
-  let keyboardType = props.numeric ? 'numeric' : (Platform.OS === 'ios' ? 'ascii-capable' : 'default');
+  let keyboardType = props.numeric
+    ? "numeric"
+    : Platform.OS === "ios"
+    ? "ascii-capable"
+    : "default";
 
   return (
     <View style={[styles.container, props.style]}>
@@ -78,21 +85,25 @@ export const KeycodeInput = (props) => {
             props.inputRef(component);
           }
         }}
-        style={[styles.input, { color: props.textColor, width: 42 * props.length }]}
+        style={[
+          styles.input,
+          { color: props.textColor, width: 42 * props.length },
+        ]}
         autoFocus={props.autoFocus}
         autoCorrect={false}
-        autoCapitalize='characters'
+        autoCapitalize="characters"
         value={inputValue}
         blurOnSubmit={false}
         keyboardType={keyboardType}
         maxLength={props.length}
         disableFullscreenUI
-        clearButtonMode='never'
+        clearButtonMode="never"
         spellCheck={false}
-        returnKeyType='go'
-        underlineColorAndroid='transparent'
+        returnKeyType="go"
+        underlineColorAndroid="transparent"
         onChangeText={(text) => changeText(text)}
-        caretHidden/>
+        caretHidden
+      />
     </View>
   );
 };
@@ -109,52 +120,52 @@ KeycodeInput.propTypes = {
   numeric: PropTypes.bool,
   value: PropTypes.string,
   style: PropTypes.any,
-  inputRef: PropTypes.func
+  inputRef: PropTypes.func,
 };
 
 KeycodeInput.defaultProps = {
-  tintColor: '#007AFF',
-  textColor: '#000',
+  tintColor: "#007AFF",
+  textColor: "#fff",
   length: 4,
   autoFocus: true,
   numeric: false,
   alphaNumeric: true,
   uppercase: true,
-  defaultValue: ''
+  defaultValue: "",
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'relative'
+    flexDirection: "row",
+    alignItems: "center",
+    position: "relative",
   },
   input: {
     height: 48,
-    position: 'absolute',
+    position: "absolute",
     opacity: 0,
-    zIndex: 100
+    zIndex: 100,
   },
   box: {
     width: 32,
-    marginHorizontal: 5
+    marginHorizontal: 5,
   },
   bar: {
-    backgroundColor: '#CED5DB',
+    backgroundColor: "#CED5DB",
     height: 1,
-    width: 32
+    width: 32,
   },
   barActive: {
     height: 2,
-    marginTop: -0.5
+    marginTop: -0.5,
   },
   text: {
     fontSize: 32,
-    fontWeight: '600',
+    fontWeight: "600",
     lineHeight: 36,
     height: 36,
-    textAlign: 'center',
+    textAlign: "center",
     width: 32,
-    marginBottom: 8
-  }
+    marginBottom: 8,
+  },
 });
