@@ -56,8 +56,10 @@ export const KeycodeInput = (props) => {
 
       elements.push(
         <View style={styles.box} key={i}>
-          <Text style={styles.text}>{vals[i] || ''}</Text>
-          <View style={barStyles}/>
+          <Text style={[styles.text, { color: props.textColor }]}>
+            {vals[i] || ""}
+          </Text>
+          <View style={barStyles} />
         </View>
       );
 
